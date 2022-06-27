@@ -2,6 +2,8 @@ from datetime import datetime
 import json
 from django.http import JsonResponse
 from django.shortcuts import render
+
+from store.utils import updateDataBase
 from .models import Customer, Order, OrderItem, Product
 
 # Create your views here.
@@ -27,28 +29,13 @@ def store(request):
 
 
 def cart(request):
-    cookie = request.COOKIES['cart']
-    cart = json.loads(cookie)
-    if cart['orderId'] == 'none':
-        order_id = datetime.now().timestamp()
-    else: 
-        order_id = cart['orderId']
-    order, created = Order.objects.get_or_create(transaction_id=order_id)
-
-    for key in cart.keys():
-        if key != 'orderId':
-            key_id = int(key)
-            product = Product.objects.get(id=key_id)
-            quantity = cart[key]['quantity']
-            
-        item, created = OrderItem.objects.get_or_create(order=order, product=product)
-        item.quantity = quantity
-        item.save()
-
-    order.save()
+    order = updateDataBase(request)
+    
        
-
-    order_items = order.orderitem_set.all()
+    if order != '':
+        order_items = order.orderitem_set.all()
+    else:
+        order_items = None
     context = {
         'order': order,
         'items': order_items
@@ -58,7 +45,18 @@ def cart(request):
 
 def checkout(request):
 
-    context = {}
+    order = updateDataBase(request)
+    
+       
+
+    if order != '':
+        order_items = order.orderitem_set.all()
+    else:
+        order_items = None
+    context = {
+        'order': order,
+        'items': order_items
+        }
     return render(request, 'store/checkout.html', context)
 
 

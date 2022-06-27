@@ -1,4 +1,6 @@
 // Display the form or not
+let formDiv = document.querySelector('.form')
+
 
 if ((Object.keys(cart).length - 1) <=0) {
     formDiv.classList.add('hidden')
