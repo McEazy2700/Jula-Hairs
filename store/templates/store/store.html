@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ block.super }} - Store {% endblock title %}
+
+{% block content %}
+
+<form >
+    <div class="search">
+        <label for="search"></label>
+        <input name="search" type="text" placeholder="Search">
+        <button id="search-btn">Search</button>
+    </div>
+</form>
+
+<h1>Jula Store</h1>
+
+{% for product in products %}
+    <div class="card">
+        <div class="card-img">
+            <img src="{{ product.imageURL}}" alt="{{ product.name }} image">
+        </div>
+        <div class="card-details">
+            <p>{{ product.name }}</p>
+            <h3>{{ product.price }}</h3>
+        </div>
+        <button 
+            data-action="add" 
+            data-product="{{ product.id }}"
+            class="btn btn-primary product-btn">Add To Cart
+        </button>
+    </div>
+{% endfor %}
+
+{% endblock content %}

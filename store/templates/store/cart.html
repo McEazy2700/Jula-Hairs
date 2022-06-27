@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super}} - Cart{% endblock title %}
+
+{% block content %}
+<script>
+    if (cart['orderId'] == 'none') {
+        cart['orderId'] = {{ order.transaction_id }}
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+    }
+</script>
+<h1>products</h1>
+<a href="{% url 'checkout' %}">Checkout</a>
+    {% for item in items %}
+        <h1>{{ item.product.name }}</h1>
+        <h4>{{ item.quantity }}</h4>
+    {% endfor %}
+{% endblock content %}

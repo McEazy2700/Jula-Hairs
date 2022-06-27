@@ -1,0 +1,24 @@
+/* Hidden items */
+
+.hidden {
+    display: none;
+}
+
+
+#cart-icon {
+    display: flex;
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    padding-right: 10px;
+}
+
+#cart-icon img {
+    width: 30px;
+}
+
+#cart-length {
+    position: fixed;
+    top: 1px;
+    right: 15px;
+}

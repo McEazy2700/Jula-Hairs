@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ block.super}} - Checkout {% endblock title %}
+
+{% block content %}
+    <h1>Checkout</h1>
+
+    <div class="form">
+        <form method="post" id="form">
+            {% csrf_token %}
+            <div class="user-info">
+                <div class="form-field">
+                    <label for="first_name"></label>
+                    <input required name="first_name" type="text" placeholder='First name e.g. John'>
+                </div>
+                <div class="form-field">
+                    <label for="last_name"></label>
+                    <input required name="last_name" type="text" placeholder='Last name e.g. Doe'>
+                </div>
+                <div class="form-field">
+                    <label for="email"></label>
+                    <input required type="email" name="email" placeholder="Email e.g. example@gmail.com" id="">
+                </div>
+                <div class="form-field">
+                    <label for="phone"></label>
+                    <input required type="text" name="phone" placeholder="Phone e.g. 08012345678">
+                </div>
+            </div>
+            <div class="shipping-info">
+                <div class="form-field">
+                    <label for="address"></label>
+                    <input 
+                        required 
+                        name="address" 
+                        placeholder="Address e.g. No. 9 Yello Bush Street" 
+                        type="text">
+                </div>
+                <div class="form-field">
+                    <label for="state"></label>
+                    <input required type="text" name="state" placeholder="State">
+                </div>
+                <div class="form-field">
+                    <label for="city"></label>
+                    <input required type="text" name="city" placeholder="City">
+                </div>
+            </div>
+            <button type="submit" id="checkout-btn" class="btn btn-success">Continue</button>
+        </form>
+    </div>
+
+    <script src="{% static 'js/checkout.js' %}"></script>
+    
+{% endblock content %}

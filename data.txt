@@ -1,0 +1,9 @@
+{'form_data': 
+{'first_name': 'Victor', 
+'last_name': 'Ezekiel', 
+'email': 'codeepoch@gmail.com', 
+'phone': 'dfgghdrgh', 
+'name': 'MTN Mast', 
+'state': 'Nassarawa', 
+'city': 'Abuja'}, 
+'cookies': 'cart={"1":{"quantity":2},"3":{"quantity":3},"4":{"quantity":1},"5":{"quantity":2},"orderId":1656280156.15512}; csrftoken=WAiFCaCh97UHRnE7V1qOHjFGLmVWPDDdwsyEWsPawxn41U3yJboqzqe5iS0ijpl3'}
