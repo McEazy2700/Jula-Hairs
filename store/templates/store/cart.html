@@ -19,10 +19,10 @@
     {% for item in items %}
         <div id="{{ item.product.id }}" class="card">
             <div class="card-img">
-                <img src="{{ item.product.imageURL}}" alt="{{ product.name }} image">
+                <img src="{{ item.product.imageURL}}" alt="{{ item.product.name }} image">
             </div>
             <div class="card-details">
-                <p>{{ item.product.name }}</p>
+                <h2>{{ item.product.name }}</h2>
                 <h3>{{ item.product.price }}</h3>
                 <div class="quantity">
                     <div

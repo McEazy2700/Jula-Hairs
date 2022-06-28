@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ block.super }} - {{ product.name }}{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="url"><a class="btn btn-secondary" href="{% url 'store' %}">&#x2190; Continue Shopping</a></div>
+    <div id="{{ product.id }}" class="card">
+        <div class="card-img">
+            <img src="{{ product.imageURL}}" alt="{{ product.name }} image">
+        </div>
+        <div class="card-details">
+            <h2>{{ product.name }}</h2>
+            <h3>{{ product.price }}</h3>
+            <p>{{ product.description }}</p>
+        </div>
+        {% if product.in_stock %}
+            <button
+                data-action="add"
+                data-product="{{ product.id }}"
+                class="btn btn-primary card-btn product-btn detail-btn">Add To Cart
+            </button>
+        {% else %}
+            <button class="btn btn-secondary">
+                Sold Out
+            </button>
+        {% endif %}
+        
+    </div>
+
+{% endblock content %}

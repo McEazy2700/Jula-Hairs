@@ -4,14 +4,20 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from store.utils import updateDataBase
-from .models import Customer, Order, OrderItem, Product
+from .models import Customer, Order, OrderItem, Product, Service, Testimonial
 
 # Create your views here.
 
 
 def homePage(request):
 
-    context = {}
+    services = Service.objects.all().order_by('-date_added')
+    testimonials = Testimonial.objects.all().order_by('-date_added')
+
+    context = {
+        'services': services,
+        'testimonials': testimonials
+    }
     return render(request, 'store/home.html', context)
 
 
@@ -41,6 +47,17 @@ def cart(request):
         'items': order_items
         }
     return render(request, 'store/cart.html', context)
+
+
+def productDetail(request, id):
+    try:
+        product = Product.objects.get(id=id)
+    except:
+        product = None
+
+    context = {'product': product}
+
+    return render(request, 'store/product_detail.html', context)
 
 
 def checkout(request):

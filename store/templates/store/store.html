@@ -21,17 +21,25 @@
     {% for product in products %}
         <div class="card">
             <div class="card-img">
+            <a href="{% url 'detail' product.id %}">
                 <img src="{{ product.imageURL}}" alt="{{ product.name }} image">
+            </a>
             </div>
             <div class="card-details">
                 <p>{{ product.name }}</p>
                 <h3>{{ product.price }}</h3>
             </div>
-            <button
-                data-action="add"
-                data-product="{{ product.id }}"
-                class="btn btn-primary card-btn product-btn">Add To Cart
-            </button>
+            {% if product.in_stock %}
+                <button
+                    data-action="add"
+                    data-product="{{ product.id }}"
+                    class="btn btn-primary card-btn product-btn">Add To Cart
+                </button>
+            {% else %}
+                <button class="btn btn-secondary">
+                    Sold Out
+                </button>
+            {% endif %}
         </div>
     {% endfor %}
 </div>

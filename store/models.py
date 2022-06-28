@@ -71,6 +71,7 @@ class ShippingInfo(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
     address = models.TextField(max_length=500, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     state = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self) -> str:
@@ -79,6 +80,7 @@ class ShippingInfo(models.Model):
 
 class Testimonial(models.Model):
     image = models.ImageField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     testimony = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -91,3 +93,13 @@ class Testimonial(models.Model):
         except:
             url = '/static/images/placeholder.jpg'
         return url
+
+
+class Service(models.Model):
+    service_name = models.CharField(max_length=60, null=True, blank=True)
+    service_image = models.ImageField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    service_description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.service_name
