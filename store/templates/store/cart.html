@@ -15,7 +15,9 @@
     }
 </script>
 <p><strong>Order Total:</strong><h3 id="price">&#8358;{{ order.getTotalPrice|floatformat:2 }}</h3></p>
-<a id="checkout" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+{% if items %}
+    <a id="checkout" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+{% endif %}
     {% for item in items %}
         <div id="{{ item.product.id }}" class="card">
             <div class="card-img">
