@@ -20,12 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2a+0c(7^g)vs=tpvqfs_10h01zw%ud-fc5$e0l-g%rjd=p7uy!'
+# SECRET_KEY = 'django-insecure-2a+0c(7^g)vs=tpvqfs_10h01zw%ud-fc5$e0l-g%rjd=p7uy!'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['julahairs.herokuapp.com']
 
 
 # Application definition
@@ -129,8 +130,8 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # PAYSTACK
-PAYSTACK_PUBLIC_KEY = 'pk_test_74f19c33a7325ecc99f7794b48229dc5ecfa7032'
-PAYSTACK_SECRET_KEY = 'sk_test_31c718f9065e60776360a37ab38b502966ddb92d'
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY')
 
 # AMAZON WEB SERVICES
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
