@@ -1,0 +1,1 @@
+web: gunicorn julla_hairs.wsgi
