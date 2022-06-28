@@ -19,9 +19,9 @@ def store(request):
     search = request.GET.get('search')
 
     if search and search != '':
-        products = Product.objects.filter(name__icontains=search)
+        products = Product.objects.filter(name__icontains=search).order_by('-date_added')
     else:
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('-date_added')
     context = {
         'products': products
     }

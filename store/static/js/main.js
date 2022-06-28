@@ -16,8 +16,6 @@ function changeNav(){
             priNav.setAttribute('data-visible', false);
         }
     }
-    console.log(priNav)
-    console.log(visibility)
     }
 
 
@@ -26,7 +24,6 @@ let updateButtons = document.querySelectorAll('.product-btn');
 let cartIcon = document.querySelector('#cart-length');
 let cartItems = Object.keys(cart).length - 1;
 
-let formDiv = document.querySelector('.form')
 
 if (cartItems < 0) {
     cartItems = 0;

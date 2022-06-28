@@ -16,10 +16,11 @@ class Customer(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     description = models.TextField(max_length=500, null=True, blank=True)
     in_stock = models.BooleanField(default=True)
     image = models.ImageField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -74,3 +75,19 @@ class ShippingInfo(models.Model):
 
     def __str__(self) -> str:
         return self.address
+
+
+class Testimonial(models.Model):
+    image = models.ImageField(null=True, blank=True)
+    testimony = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.testimony
+
+    
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = '/static/images/placeholder.jpg'
+        return url
