@@ -47,6 +47,13 @@ class Order(models.Model):
             order = self.id
         return str(order)
 
+    def getTotalPrice(self):
+        total = 0
+        for item in self.orderitem_set.all():
+            price = item.product.price * item.quantity
+            total += price
+        return total
+
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)

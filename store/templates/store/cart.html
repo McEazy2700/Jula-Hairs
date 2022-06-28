@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ block.super}} - Cart{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock css %}
 
 {% block content %}
 <script>
@@ -9,10 +14,39 @@
         document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
     }
 </script>
-<h1>products</h1>
-<a href="{% url 'checkout' %}">Checkout</a>
+<p><strong>Order Total:</strong><h3 id="price">{{ order.getTotalPrice|floatformat:2 }}</h3></p>
+<a id="checkout" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
     {% for item in items %}
-        <h1>{{ item.product.name }}</h1>
-        <h4>{{ item.quantity }}</h4>
+        <div id="{{ item.product.id }}" class="card">
+            <div class="card-img">
+                <img src="{{ item.product.imageURL}}" alt="{{ product.name }} image">
+            </div>
+            <div class="card-details">
+                <p>{{ item.product.name }}</p>
+                <h3>{{ item.product.price }}</h3>
+                <div class="quantity">
+                    <div
+                    data-action="remove"
+                    data-product="{{ item.product.id }}"
+                    id="subtract"
+                    onclick="updateQuantity(this)"
+                    class=" quantity-btn product-btn">&#8722;</div>
+                    <span>{{ item.quantity }}</span>
+                    <div 
+                    data-action="add"
+                    data-product="{{ item.product.id }}"
+                    id="add"
+                    onclick="updateQuantity(this)"
+                    class=" quantity-btn product-btn">&#43;</div>
+                </div>
+            </div>
+            
+        </div>
     {% endfor %}
+
+    <script>
+        function updateQuantity(card) {
+            location.reload()
+        }
+    </script>
 {% endblock content %}

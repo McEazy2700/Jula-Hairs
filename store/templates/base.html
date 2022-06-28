@@ -33,13 +33,34 @@
     </script>
 </head>
 <body>
-    <div class="container">
+    <nav>
+        <div id="navbar">
+            <div class="left-nav">
+                <a href="{% url 'homepage' %}">
+                    <div class="logo"></div>
+                    <div class="nav-brand">Jula Hairs</div>
+                </a>
+            </div>
+            <div class="right-nav">
+                <div data-visible="false" class="primary-navigation">
+                    <div class="nav-item"><a href="{% url 'homepage' %}">Home</a></div>
+                    <div class="nav-item"><a href="{% url 'store' %}">Store</a></div>
+                    <div class="nav-item"><a href="#">About Us</a></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="fixed-icons">
         <a href="{% url 'cart'%}" id="cart">
             <div id="cart-icon">
                 <img src="{% static 'images/cart.png' %}" alt="cart image">
-                <div id="cart-length">0</div>
+                <div class="btn btn-primary" id="cart-length">0</div>
             </div>
         </a>
+        <div id="hamburger-icon">{% include 'includes/nav-icon.html' %}</div>
+
+    </div>
+    <div class="container">
         {% block content %}{% endblock content %}
     </div>
 

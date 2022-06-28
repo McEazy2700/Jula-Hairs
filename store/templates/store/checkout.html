@@ -2,12 +2,16 @@
 {% load static %}
 {% block title %} {{ block.super}} - Checkout {% endblock title %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock css %}
+
 {% block content %}
-    <h1>Checkout</h1>
 
     <div class="form">
         <form method="post" id="form">
             {% csrf_token %}
+            <h4>User Info</h4>
             <div class="user-info">
                 <div class="form-field">
                     <label for="first_name"></label>
@@ -26,6 +30,7 @@
                     <input required type="text" name="phone" placeholder="Phone e.g. 08012345678">
                 </div>
             </div>
+            <h4>Shipping Info</h4>
             <div class="shipping-info">
                 <div class="form-field">
                     <label for="address"></label>
@@ -43,8 +48,11 @@
                     <label for="city"></label>
                     <input required type="text" name="city" placeholder="City">
                 </div>
+                <div class="total">
+                    <h3> Total:</h3><h4>{{ order.getTotalPrice|floatformat:2 }}</h4>
+                </div>
             </div>
-            <button type="submit" id="checkout-btn" class="btn btn-success">Continue</button>
+            <button type="submit" id="checkout-btn" class="btn btn-primary">Continue</button>
         </form>
     </div>
 

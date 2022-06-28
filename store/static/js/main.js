@@ -1,17 +1,38 @@
+// Nav
+
+const hamNav = document.querySelector('#check');
+const priNav = document.querySelector('.primary-navigation');
+
+hamNav.addEventListener('change', changeNav);
+
+function changeNav(){
+    const visibility = priNav.getAttribute('data-visible');
+    if (this.checked){
+        if (visibility === 'false') {
+            priNav.setAttribute('data-visible', true);
+        }
+    } else{
+        if (visibility === 'true') {
+            priNav.setAttribute('data-visible', false);
+        }
+    }
+    console.log(priNav)
+    console.log(visibility)
+    }
+
+
 let updateButtons = document.querySelectorAll('.product-btn');
 
 let cartIcon = document.querySelector('#cart-length');
 let cartItems = Object.keys(cart).length - 1;
 
+let formDiv = document.querySelector('.form')
 
 if (cartItems < 0) {
     cartItems = 0;
 }
 
 cartIcon.innerHTML = cartItems;
-
-
-
 
 
 for (let i=0;i<updateButtons.length; i++) {
@@ -67,5 +88,6 @@ function updateCartIcon() {
     
     cartIcon.innerHTML = cartItems;
 }
+
 
 

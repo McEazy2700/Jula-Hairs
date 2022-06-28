@@ -2,33 +2,39 @@
 {% load static %}
 {% block title %} {{ block.super }} - Store {% endblock title %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/store.css' %}">
+{% endblock css %}
+
 {% block content %}
 
-<form >
+<form id="search-form" >
     <div class="search">
         <label for="search"></label>
         <input name="search" type="text" placeholder="Search">
-        <button id="search-btn">Search</button>
+        <button class="btn btn-primary search-btn" id="search-btn">Search</button>
     </div>
 </form>
 
-<h1>Jula Store</h1>
+<div class="products">
+    
+    {% for product in products %}
+        <div class="card">
+            <div class="card-img">
+                <img src="{{ product.imageURL}}" alt="{{ product.name }} image">
+            </div>
+            <div class="card-details">
+                <p>{{ product.name }}</p>
+                <h3>{{ product.price }}</h3>
+            </div>
+            <button
+                data-action="add"
+                data-product="{{ product.id }}"
+                class="btn btn-primary card-btn product-btn">Add To Cart
+            </button>
+        </div>
+    {% endfor %}
+</div>
 
-{% for product in products %}
-    <div class="card">
-        <div class="card-img">
-            <img src="{{ product.imageURL}}" alt="{{ product.name }} image">
-        </div>
-        <div class="card-details">
-            <p>{{ product.name }}</p>
-            <h3>{{ product.price }}</h3>
-        </div>
-        <button 
-            data-action="add" 
-            data-product="{{ product.id }}"
-            class="btn btn-primary product-btn">Add To Cart
-        </button>
-    </div>
-{% endfor %}
 
 {% endblock content %}
