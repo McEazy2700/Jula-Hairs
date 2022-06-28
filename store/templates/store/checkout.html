@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-field">
                     <label for="phone"></label>
-                    <input required type="text" name="phone" placeholder="Phone e.g. 08012345678">
+                    <input required type="tel" name="phone" placeholder="Phone e.g. 08012345678">
                 </div>
             </div>
             <h4>Shipping Info</h4>
@@ -49,12 +49,22 @@
                     <input required type="text" name="city" placeholder="City">
                 </div>
                 <div class="total">
-                    <h3> Total:</h3><h4>{{ order.getTotalPrice|floatformat:2 }}</h4>
+                    <h3> Total:</h3><h4>&#8358;{{ order.getTotalPrice|floatformat:2 }}</h4>
                 </div>
             </div>
             <button type="submit" id="checkout-btn" class="btn btn-primary">Continue</button>
         </form>
     </div>
+
+    {% if order %}
+        <script>
+            let transaction_ref = '{{ order.transaction_id }}'
+            let orderAmount = {{ order.getTotalPrice }}
+            let payStackPubKey = '{{ paystack_public_key }}'
+        </script>
+    {% endif %}
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 
     <script src="{% static 'js/checkout.js' %}"></script>
     

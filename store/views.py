@@ -1,10 +1,12 @@
 from datetime import datetime
 import json
+from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.contrib import messages
 
-from store.utils import updateDataBase
-from .models import Customer, Order, OrderItem, Product, Service, Testimonial
+from store.utils import initiatePayment, updateDataBase
+from .models import Customer, Order, OrderItem, Payment, Product, Service, Testimonial
 
 # Create your views here.
 
@@ -38,7 +40,7 @@ def cart(request):
     order = updateDataBase(request)
     
        
-    if order != '':
+    if order != None:
         order_items = order.orderitem_set.all()
     else:
         order_items = None
@@ -64,20 +66,23 @@ def checkout(request):
 
     order = updateDataBase(request)
     
-       
+    
 
-    if order != '':
+    if order != None:
         order_items = order.orderitem_set.all()
     else:
         order_items = None
     context = {
         'order': order,
-        'items': order_items
+        'items': order_items,
+        'paystack_public_key': settings.PAYSTACK_PUBLIC_KEY
         }
+    
+    initiatePayment(order)
     return render(request, 'store/checkout.html', context)
 
 
-def processOrder(request):
+def processOrder(request, ref:str):
     data = json.loads(request.body)
     form = data['form_data']
     order_id = data['orderId']
@@ -93,8 +98,29 @@ def processOrder(request):
         if customer.is_valid():
             customer.save()
 
-    
+
     order = Order.objects.get(transaction_id=order_id)
+
+    try:
+        payment = Payment.objects.get(ref=ref)
+        payment.amount = order.getTotalPrice()
+        payment.email=customer.email
+        payment.customer=customer
+        payment.order=order
+        payment.save()
+    except:
+        payment = Payment.objects.create(
+            ref=ref,
+            amount=order.getTotalPrice(),
+            email=customer.email,
+            customer=customer,
+            order=order
+        )
+        payment.save()
+    verified = payment.verify_payment()
+    if verified:
+        pass
+
     order.customer = customer
     order.complete = True
     order.save()

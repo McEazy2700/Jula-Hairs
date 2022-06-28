@@ -14,9 +14,30 @@ let checkoutBtn = document.querySelector('#checkout-btn');
 let form = document.querySelector('#form');
 
 form.addEventListener('submit', function(e){
-    e.preventDefault()
-    completeOrder()
+    e.preventDefault();
+    payWithPaystack()
 })
+
+function payWithPaystack() {
+    let handler = PaystackPop.setup({
+        key: payStackPubKey, // Replace with your public key
+        email: form.email.value,
+        amount: orderAmount * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+        currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+        ref: transaction_ref, // Replace with a reference you generated
+        callback: function(response) {
+            //this happens after the payment is completed successfully
+            let reference = response.reference;
+            alert('Payment complete! Reference: ' + reference);
+            completeOrder()
+          // Make an AJAX call to your server with the reference to verify the transaction
+        },
+        onClose: function() {
+          alert('Transaction was not completed, window closed.');
+        },
+      });
+      handler.openIframe();
+}
 
 function completeOrder() {
     console.log('button was clicked')
@@ -38,9 +59,10 @@ function completeOrder() {
     console.log(orderId)
 
     let csrfToken = form.csrfmiddlewaretoken.value;
-    console.log(csrfToken)
 
-    url = '/process_order/'
+    console.log(transaction_ref)
+
+    url = `/process_order/${transaction_ref}/`
 
     fetch (url, {
         method: 'POST',

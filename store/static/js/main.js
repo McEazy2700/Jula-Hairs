@@ -18,6 +18,7 @@ function changeNav(){
     }
     }
 
+// Update Cart
 
 let updateButtons = document.querySelectorAll('.product-btn');
 
@@ -49,10 +50,11 @@ function updateCart(){
 function processUpdate(productId, action) {
 
     console.log('adding item ..')
-
+    console.log(cart)
     if (cart['orderId'] == undefined) {
         cart['orderId'] = 'none';
     }
+    console.log(cart)
 
     if (action == 'add') {
         if (cart[productId] == undefined) {

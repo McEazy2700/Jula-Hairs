@@ -125,3 +125,7 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# PAYSTACK
+PAYSTACK_PUBLIC_KEY = 'pk_test_74f19c33a7325ecc99f7794b48229dc5ecfa7032'
+PAYSTACK_SECRET_KEY = 'sk_test_31c718f9065e60776360a37ab38b502966ddb92d'

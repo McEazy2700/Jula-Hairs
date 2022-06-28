@@ -1,14 +1,18 @@
-from .models import Customer, Order, OrderItem, Product
-from datetime import datetime
+import secrets
+from .models import Customer, Order, OrderItem, Payment, Product
 import json
 
 
 def updateDataBase(request):
-    cookie = request.COOKIES['cart']
-    cart = json.loads(cookie)
+    try:
+        cookie = request.COOKIES['cart']
+        cart = json.loads(cookie)
+    except:
+        cookie = None
     try:
         if cart['orderId'] == 'none':
-            order_id = datetime.now().timestamp()
+            print(cart['orderId'])
+            order_id = secrets.token_urlsafe(40)
         else: 
             order_id = cart['orderId']
         order, created = Order.objects.get_or_create(transaction_id=order_id, complete=False)
@@ -24,6 +28,17 @@ def updateDataBase(request):
             item.save()
 
         order.save()
+        return order
     except:
-        order = ''
+        order = None
     return order
+
+
+def initiatePayment(order):
+    ref = order.transaction_id
+    try:
+        payment = Payment.objects.get(ref=ref)
+    except:
+        payment = Payment.objects.create(ref=ref, order=order)
+    payment.save()
+    return payment

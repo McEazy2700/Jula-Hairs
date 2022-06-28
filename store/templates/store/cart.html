@@ -10,11 +10,11 @@
 {% block content %}
 <script>
     if (cart['orderId'] == 'none') {
-        cart['orderId'] = {{ order.transaction_id }}
+        cart['orderId'] = '{{ order.transaction_id }}'
         document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
     }
 </script>
-<p><strong>Order Total:</strong><h3 id="price">{{ order.getTotalPrice|floatformat:2 }}</h3></p>
+<p><strong>Order Total:</strong><h3 id="price">&#8358;{{ order.getTotalPrice|floatformat:2 }}</h3></p>
 <a id="checkout" class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
     {% for item in items %}
         <div id="{{ item.product.id }}" class="card">
@@ -23,7 +23,7 @@
             </div>
             <div class="card-details">
                 <h2>{{ item.product.name }}</h2>
-                <h3>{{ item.product.price }}</h3>
+                <h3>&#8358;{{ item.product.price|floatformat:2 }}</h3>
                 <div class="quantity">
                     <div
                     data-action="remove"
