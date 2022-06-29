@@ -1,4 +1,7 @@
 import secrets
+
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from .models import Customer, Order, OrderItem, Payment, Product
 import json
 
@@ -35,7 +38,10 @@ def updateDataBase(request):
 
 
 def initiatePayment(order):
-    ref = order.transaction_id
+    try:
+        ref = order.transaction_id
+    except:
+        return redirect(reverse_lazy('store'))
     try:
         payment = Payment.objects.get(ref=ref)
     except:
