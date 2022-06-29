@@ -123,6 +123,7 @@ class Testimonial(models.Model):
         return self.testimony
 
     
+    @property
     def imageURL(self):
         try:
             url = self.image.url
@@ -139,3 +140,11 @@ class Service(models.Model):
 
     def __str__(self):
         return self.service_name
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.service_image.url
+        except:
+            url = '/static/images/placeholder.jpg'
+        return url
