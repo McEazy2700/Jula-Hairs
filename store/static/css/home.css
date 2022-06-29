@@ -36,6 +36,8 @@ section .body {
     padding: clamp(20px, 1vw, 10px);
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(2rem, 1vw, 0.4rem);
 }
 
 .service {
