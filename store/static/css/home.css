@@ -53,7 +53,7 @@ section .body {
 }
 
 .card-text {
-    max-width: ;
+    max-width: fit-content;
 }
 
 .card h4 {
