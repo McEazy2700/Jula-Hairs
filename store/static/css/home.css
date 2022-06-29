@@ -30,16 +30,11 @@
     padding: 5px 10px;
 }
 
-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
+
 
 section .body {
     padding: clamp(20px, 1vw, 10px);
     display: flex;
-    flex-direction: column;
     justify-content: center;
 }
 
@@ -58,7 +53,7 @@ section .body {
 }
 
 .card-text {
-    max-width: fit-content;
+    max-width: ;
 }
 
 .card h4 {
