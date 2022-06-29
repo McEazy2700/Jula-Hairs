@@ -30,7 +30,9 @@
     padding: 5px 10px;
 }
 
-
+section {
+    padding: clamp(3.5rem, 1vw, 01.25rem);
+}
 
 section .body {
     padding: clamp(20px, 1vw, 10px);
