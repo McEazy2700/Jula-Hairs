@@ -33,7 +33,10 @@ function payWithPaystack() {
           // Make an AJAX call to your server with the reference to verify the transaction
         },
         onClose: function() {
-          alert('Transaction was not completed, window closed.');
+            cart = {};
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            alert('Transaction was not completed, window closed.');
+            window.location.href = '/'
         },
       });
       handler.openIframe();
