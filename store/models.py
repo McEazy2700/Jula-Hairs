@@ -45,7 +45,7 @@ class Order(models.Model):
 
     def __str__(self):
         try:
-            order = self.transaction_id
+            order = self.customer.email
         except:
             order = self.id
         return str(order)
