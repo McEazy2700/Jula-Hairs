@@ -50,7 +50,7 @@ section .body {
     padding: 5px;
     border-radius: 6px;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.219);
-    max-width: fit-content;
+    max-width: 620px;
 }
 
 .card h4 {
