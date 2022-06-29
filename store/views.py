@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-from django.contrib import messages
+from django.core.paginator import Paginator
 
 from store.utils import initiatePayment, updateDataBase
 from .models import Customer, Order, OrderItem, Payment, Product, Service, Testimonial
@@ -30,9 +30,20 @@ def store(request):
         products = Product.objects.filter(name__icontains=search).order_by('-date_added')
     else:
         products = Product.objects.all().order_by('-date_added')
+
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    if page_obj.paginator.num_pages > 20:
+        is_paginated = True
+    else:
+        is_paginated = False
     context = {
-        'products': products
+        'products': products,
+        'page_obj': page_obj,
+        'is_paginated': is_paginated
     }
+
     return render(request, 'store/store.html', context)
 
 
